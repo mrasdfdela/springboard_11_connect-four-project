@@ -11,10 +11,17 @@
 .piece {
   /* TODO: make into circles */
   margin: 5px;
-  width: 80%;
-  height: 80%;
+  width: 40px;
+  height: 40px;
   border-radius: 100%;
+  /* animation-name: drop-down;
+  animation-duration: 1s; */
 }
+
+/* @keyframes drop-down {
+  0% {position: absolute; top:13px;}
+  100% {position: absolute; top: 90px;}
+} */
 
 .p1 {
   background-color: red;

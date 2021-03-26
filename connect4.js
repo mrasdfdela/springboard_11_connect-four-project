@@ -123,13 +123,13 @@ function handleClick(evt) {
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
 
 function checkForWin() {
+  // Check four cells to see if they're all color of current player
   function _win(cells) {
-    // Check four cells to see if they're all color of current player
-    //  - cells: list of four (y, x) cells
-    //  - returns true if all are legal coordinates & all match currPlayer
-
+    // - cells: list of four coordinates (y, x) of cells
+    
     return cells.every(
       ([y, x]) =>
+      //  - returns true if all are legal coordinates & all match currPlayer
         y >= 0 &&
         y < HEIGHT &&
         x >= 0 &&
@@ -140,13 +140,17 @@ function checkForWin() {
 
   // DONE: read and understand this code. Add comments to help you.
 
+  // scan through board; for each coordinate, create a set of 4 coordinates corresponding to winning scenarios
   for (var y = 0; y < HEIGHT; y++) {
     for (var x = 0; x < WIDTH; x++) {
+      // coordinates going up and to the right
       var horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
       var vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
+      // coordinates going diagonol right and diagonol left
       var diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
       var diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
 
+      //test if any of the 4 sets of coordinates belong to the current player (that made the last move)
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
       }
