@@ -54,8 +54,14 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  // DONE: write the real version of this, rather than always returning 0
+  for (var y = HEIGHT - 1; y >= 0; y--) {
+    cell = document.getElementById(`${y}-${x}`);
+    if (cell.children.length === 0) {
+      return y;
+    }
+  }
+  return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -66,23 +72,20 @@ function placeInTable(y, x) {
 
   gamePiece = document.createElement('div');
   gamePiece.classList.add('piece', playerClass);
-  
-  for (var y = HEIGHT-1; y >= 0 ; y--) {
-    cell = document.getElementById(`${y}-${x}`);
-    if (cell.children.length===0){
-      cell.append(gamePiece);
-      board[y][x] = currPlayer;
-      console.log(board);
-      return;
-    }
-  }
+  cell.append(gamePiece);
 }
 
 /** endGame: announce game end */
 
 function endGame(msg) {
   // TODO: pop up alert message
-  alert(`Player ${currPlayer} has won!`)
+  setTimeout(() => {
+    if (msg) {
+      alert(msg);
+    } else {
+      alert(`Player ${currPlayer} has won!`);
+    }
+  }, 10);
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -98,8 +101,9 @@ function handleClick(evt) {
   }
 
   // place piece in board and add to HTML table
-  // TODO: add line to update in-memory board
+  // DONE: add line to update in-memory board
   placeInTable(y, x);
+  board[y][x] = currPlayer;
 
   // check for win
   if (checkForWin()) {
@@ -107,9 +111,9 @@ function handleClick(evt) {
   }
 
   // check for tie
-  // TODO: check if all cells in board are filled; if so call, call endGame
+  // DONE: check if all cells in board are filled; if so call, call endGame
   gamePieces = document.querySelectorAll('#board div')
-  if (gamePieces.length === WIDTH * HEIGHT) endGame();
+  if (gamePieces.length === WIDTH * HEIGHT) endGame('Draw!');
 
   // switch players
   // DONE: switch currPlayer 1 <-> 2
@@ -134,7 +138,7 @@ function checkForWin() {
     );
   }
 
-  // TODO: read and understand this code. Add comments to help you.
+  // DONE: read and understand this code. Add comments to help you.
 
   for (var y = 0; y < HEIGHT; y++) {
     for (var x = 0; x < WIDTH; x++) {
