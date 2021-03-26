@@ -62,6 +62,19 @@ function findSpotForCol(x) {
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
+  playerClass = `p${currPlayer}`
+
+  gamePiece = document.createElement('div');
+  gamePiece.classList.add('piece', playerClass);
+  
+  for (var y = HEIGHT-1; y >= 0 ; y--) {
+    cell = document.getElementById(`${y}-${x}`);
+    if (cell.children.length===0){
+      cell.append(gamePiece);
+      console.log(cell)
+      return;
+    }
+  }
 }
 
 /** endGame: announce game end */
