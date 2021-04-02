@@ -28,7 +28,7 @@ function makeHtmlBoard() {
   // DONE: add comment for this code
   // create (parent) table-row element for top of board w/ id and event listener 
   const top = document.createElement("tr");
-  top.setAttribute("id", "column-top");
+  top.setAttribute("id", "column-top"); // ### TA NOTE: WOULD RATHER HAVE USED A CLASS (USUALLY RESERVED FOR VERY SPECIFIC ACTIONS) HELPS FOR FUTURE FLEXIBILITY, RATHER CALLED TOP-ROW TO BE MORE DESCRIPTIVE
   top.addEventListener("click", handleClick);
   //create table-data elements for top row of board according to WIDTH of board 
   for (let x = 0; x < WIDTH; x++) {
@@ -57,9 +57,9 @@ function findSpotForCol(x) {
   // DONE: write the real version of this, rather than always returning 0
   for (let y = HEIGHT - 1; y >= 0; y--) {
     cell = document.getElementById(`${y}-${x}`);
-    if (cell.children.length === 0) {
+    if (cell.children.length === 0) { // ### TA NOTE: USING THE DOM IS NOT OPTIMAL BECAUSE IT IS MIXING CONCERNS; RATHER LOOK FOR ITEMS IN THE BOARD ARRAY
       return y;
-    }
+    } 
   }
   return null;
 }
@@ -77,7 +77,7 @@ function placeInTable(y, x) {
 
 /** endGame: announce game end */
 
-function endGame(msg) {
+function endGame(msg) { // ### TA NOTE: RENAME SHOWMESSAGE TO BE MORE ACCURATE; THIS TECHNICALLY DOESN'T END THE GAME
   // TODO: pop up alert message
   setTimeout(() => {
     if (msg) {
@@ -103,7 +103,7 @@ function handleClick(evt) {
   // place piece in board and add to HTML table
   // DONE: add line to update in-memory board
   placeInTable(y, x);
-  board[y][x] = currPlayer;
+  board[y][x] = currPlayer; //  ### TA NOTE: SWITCH WITH PREVIOUS LINE; YOU'D RATHER CHANGE THE UNDERLYING DATA BEFORE UPDATING THE UI
 
   // check for win
   if (checkForWin()) {
@@ -112,19 +112,19 @@ function handleClick(evt) {
 
   // check for tie
   // DONE: check if all cells in board are filled; if so call, call endGame
-  gamePieces = document.querySelectorAll('#board div')
-  if (gamePieces.length === WIDTH * HEIGHT) endGame('Draw!');
+  gamePieces = document.querySelectorAll("#board div");
+  if (gamePieces.length === WIDTH * HEIGHT) endGame("Draw!"); // ### TA NOTE:  BOARD ARRAY RATHER THAN DOM FOR COUNT
 
   // switch players
   // DONE: switch currPlayer 1 <-> 2
-  currPlayer === 1 ? currPlayer = 2 : currPlayer = 1;
+  currPlayer === 1 ? (currPlayer = 2) : (currPlayer = 1); // ### TA NOTE: DON'T NEED TO TYPE OUT CURRPLAYER AGAIN
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
 
 function checkForWin() {
   // Check four cells to see if they're all color of current player
-  function _win(cells) {
+  function _win(cells) { // ### TA NOTE: INTRO TO OBJ-ORIENTED PROGRAMMING; IT GROUPS FUNCTIONS TOGETHER TO HELP ESTABLISH THEIR CONTEXT
     // - cells: list of four coordinates (y, x) of cells
     
     return cells.every(
