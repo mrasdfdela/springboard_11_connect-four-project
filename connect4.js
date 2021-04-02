@@ -5,11 +5,11 @@
  * board fills (tie)
  */
 
-var WIDTH = 7;
-var HEIGHT = 6;
+const WIDTH = 7;
+const HEIGHT = 6;
 
-var currPlayer = 1; // active player: 1 or 2
-var board = []; // array of rows, each row is array of cells  (board[y][x])
+let currPlayer = 1; // active player: 1 or 2
+const board = []; // array of rows, each row is array of cells  (board[y][x])
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -27,12 +27,12 @@ function makeHtmlBoard() {
   htmlBoard = document.querySelector('#board')
   // DONE: add comment for this code
   // create (parent) table-row element for top of board w/ id and event listener 
-  var top = document.createElement("tr");
+  const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
   //create table-data elements for top row of board according to WIDTH of board 
-  for (var x = 0; x < WIDTH; x++) {
-    var headCell = document.createElement("td");
+  for (let x = 0; x < WIDTH; x++) {
+    const headCell = document.createElement("td");
     headCell.setAttribute("id", x);
     top.append(headCell);
   }
@@ -40,9 +40,9 @@ function makeHtmlBoard() {
 
   // DONE: add comment for this code
   // create rows of table-data elements according to WIDTH and HEIGHT of board
-  for (var y = 0; y < HEIGHT; y++) {
+  for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
-    for (var x = 0; x < WIDTH; x++) {
+    for (let x = 0; x < WIDTH; x++) {
       const cell = document.createElement("td");
       cell.setAttribute("id", `${y}-${x}`);
       row.append(cell);
@@ -55,7 +55,7 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // DONE: write the real version of this, rather than always returning 0
-  for (var y = HEIGHT - 1; y >= 0; y--) {
+  for (let y = HEIGHT - 1; y >= 0; y--) {
     cell = document.getElementById(`${y}-${x}`);
     if (cell.children.length === 0) {
       return y;
@@ -92,10 +92,10 @@ function endGame(msg) {
 
 function handleClick(evt) {
   // get x from ID of clicked cell
-  var x = +evt.target.id;
+  let x = +evt.target.id;
 
   // get next spot in column (if none, ignore click)
-  var y = findSpotForCol(x);
+  let y = findSpotForCol(x);
   if (y === null) {
     return;
   }
@@ -141,14 +141,14 @@ function checkForWin() {
   // DONE: read and understand this code. Add comments to help you.
 
   // scan through board; for each coordinate, create a set of 4 coordinates corresponding to winning scenarios
-  for (var y = 0; y < HEIGHT; y++) {
-    for (var x = 0; x < WIDTH; x++) {
+  for (let y = 0; y < HEIGHT; y++) {
+    for (let x = 0; x < WIDTH; x++) {
       // coordinates going up and to the right
-      var horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
-      var vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
+      let horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
+      let vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
       // coordinates going diagonol right and diagonol left
-      var diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
-      var diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
+      let diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
+      let diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
 
       //test if any of the 4 sets of coordinates belong to the current player (that made the last move)
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
