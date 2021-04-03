@@ -18,10 +18,13 @@
   animation-duration: 1s; */
 }
 
-/* @keyframes drop-down {
-  0% {position: absolute; top:13px;}
-  100% {position: absolute; top: 90px;}
-} */
+@keyframes drop-down {
+  /* 0% {position: absolute; top:13px;}
+  100% {position: absolute; top: 90px;} */
+  to {
+    top: 0;
+  }
+}
 
 .p1 {
   background-color: red;
